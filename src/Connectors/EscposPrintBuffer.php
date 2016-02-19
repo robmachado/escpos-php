@@ -35,6 +35,7 @@ namespace Escpos\Connectors;
  * get it operating properly on your machine.
  */
 
+use Escpos\Escpos;
 use Escpos\Connectors\PrintBufferInterface;
 
 class EscposPrintBuffer implements PrintBufferInterface

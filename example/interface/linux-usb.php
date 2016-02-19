@@ -20,11 +20,10 @@ use Escpos\Connectors\FilePrintConnector;
  */
 try {
     // Enter the device file for your USB printer here
-    $connector = new FilePrintConnector("/dev/null");
+    $connector = new FilePrintConnector("../temp/teste.prn");
     //$connector = new FilePrintConnector("/dev/usb/lp0");
     //$connector = new FilePrintConnector("/dev/usb/lp1");
     //$connector = new FilePrintConnector("/dev/usb/lp2");
-
     /* Print a "Hello world" receipt" */
     $printer = new Escpos($connector);
     $printer->text("Hello World!\n");

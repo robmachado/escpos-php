@@ -150,7 +150,7 @@ class Escpos
      * @param AbstractCapabilityProfile $profile Supported features of this printer. If not set, the DefaultCapabilityProfile will be used, which is suitable for Epson printers.
      * @throws InvalidArgumentException
      */
-    public function __construct(PrintConnector $connector = null, AbstractCapabilityProfile $profile = null)
+    public function __construct(PrintConnectorInterface $connector = null, AbstractCapabilityProfile $profile = null)
     {
         if (is_null($connector)) {
             if (php_sapi_name() == 'cli') {
@@ -474,7 +474,7 @@ class Escpos
      * @param PrintBuffer $buffer The buffer to use.
      * @throws InvalidArgumentException Where the buffer is already attached to a different printer.
      */
-    public function setPrintBuffer(PrintBuffer $buffer)
+    public function setPrintBuffer(PrintBufferInterface $buffer)
     {
         if ($buffer === $this->buffer) {
             return;
