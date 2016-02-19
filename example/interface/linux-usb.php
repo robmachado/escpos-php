@@ -1,6 +1,11 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+include_once '../../bootstrap.php';
+
 /* Change to the correct path if you copy this example! */
-require_once(dirname(__FILE__) . "/../../Escpos.php");
+use Escpos\Escpos;
+use Escpos\Connectors\FilePrintConnector;
 
 /**
  * On Linux, use the usblp module to make your printer available as a device
@@ -14,20 +19,18 @@ require_once(dirname(__FILE__) . "/../../Escpos.php");
  * other drivers are unloading the module.
  */
 try {
-	// Enter the device file for your USB printer here
-	$connector = new FilePrintConnector("/dev/null");
-	//$connector = new FilePrintConnector("/dev/usb/lp0");
-	//$connector = new FilePrintConnector("/dev/usb/lp1");
-	//$connector = new FilePrintConnector("/dev/usb/lp2");
+    // Enter the device file for your USB printer here
+    $connector = new FilePrintConnector("/dev/null");
+    //$connector = new FilePrintConnector("/dev/usb/lp0");
+    //$connector = new FilePrintConnector("/dev/usb/lp1");
+    //$connector = new FilePrintConnector("/dev/usb/lp2");
 
-	/* Print a "Hello world" receipt" */
-	$printer = new Escpos($connector);
-	$printer -> text("Hello World!\n");
-	$printer -> cut();
-	
-	/* Close printer */
-	$printer -> close();
+    /* Print a "Hello world" receipt" */
+    $printer = new Escpos($connector);
+    $printer->text("Hello World!\n");
+    $printer->cut();
+    /* Close printer */
+    $printer->close();
 } catch(Exception $e) {
-	echo "Couldn't print to this printer: " . $e -> getMessage() . "\n";
+    echo "Couldn't print to this printer: " . $e->getMessage() . "\n";
 }
-

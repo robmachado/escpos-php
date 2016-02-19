@@ -8,3 +8,6 @@ doc/html
 doc/latex
 doc/doxygen_sqlite3.db
 
+nbproject
+limpaTAB.php
+local

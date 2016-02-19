@@ -1,5 +1,9 @@
 <?php
-require_once(dirname(__FILE__) . '/../Escpos.php');
+error_reporting(E_ALL);
+ini_set('display_errors', 'On');
+include_once '../bootstrap.php';
+
+
 /*
  * This is three examples in one:
  *  1: Print an entire PDF, normal quality.
@@ -7,23 +11,26 @@ require_once(dirname(__FILE__) . '/../Escpos.php');
  *  3: Cache rendered documents for a speed increase (removes CPU image processing completely on subsequent prints)
  */
 
+use Escpos\Escpos;
+use Escpos\Graphics\EscposImage;
+
 /* 1: Print an entire PDF, start-to-finish (shorter form of the example) */
 $pdf = 'resources/document.pdf';
 try {
-	$pages = EscposImage::loadPdf($pdf);
-	$printer = new Escpos();
-	foreach($pages as $page) {
-		$printer -> graphics($page);
-	}
-	$printer -> cut();
-	$printer -> close();
+    $pages = EscposImage::loadPdf($pdf);
+    $printer = new Escpos();
+    foreach ($pages as $page) {
+        $printer->graphics($page);
+    }
+    $printer->cut();
+    $printer->close();
 } catch(Exception $e) {
-	/* 
-	 * loadPdf() throws exceptions if files or not found, or you don't have the
-	 * imagick extension to read PDF's
-	 */
-	echo $e -> getMessage() . "\n";
-	exit(0);
+    /* 
+     * loadPdf() throws exceptions if files or not found, or you don't have the
+     * imagick extension to read PDF's
+     */
+    echo $e->getMessage() . "\n";
+    exit(0);
 }
 
 
@@ -36,11 +43,11 @@ try {
 $printer = new Escpos();
 $pdf = 'resources/document.pdf';
 $pages = EscposImage::loadPdf($pdf, 260);
-foreach($pages as $page) {
-	$printer -> graphics($page, Escpos::IMG_DOUBLE_HEIGHT | Escpos::IMG_DOUBLE_WIDTH);
+foreach ($pages as $page) {
+    $printer->graphics($page, Escpos::IMG_DOUBLE_HEIGHT | Escpos::IMG_DOUBLE_WIDTH);
 }
-$printer -> cut();
-$printer -> close();
+$printer->cut();
+$printer->close();
 
 /*
  * 3: PDF printing still too slow? If you regularly print the same files, serialize & compress your
@@ -55,17 +62,17 @@ $printer = new Escpos();
 $pdf = 'resources/document.pdf';
 $ser = 'resources/document.z';
 if(!file_exists($ser)) {
-	$pages = EscposImage::loadPdf($pdf);
+    $pages = EscposImage::loadPdf($pdf);
 } else {
-	$pages = unserialize(gzuncompress(file_get_contents($ser)));
+    $pages = unserialize(gzuncompress(file_get_contents($ser)));
 }
 
 foreach($pages as $page) {
-	$printer -> graphics($page);
+    $printer->graphics($page);
 }
-$printer -> cut();
-$printer -> close();
+$printer->cut();
+$printer->close();
 
-if(!file_exists($ser)) {
-	file_put_contents($ser, gzcompress(serialize($pages)));
+if (!file_exists($ser)) {
+    file_put_contents($ser, gzcompress(serialize($pages)));
 }
