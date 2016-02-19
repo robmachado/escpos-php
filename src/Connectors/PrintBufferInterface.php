@@ -58,9 +58,9 @@ interface PrintBufferInterface
 
     /**
      * Used by Escpos to hook up one-to-one link between buffers and printers.
-     * @param Escpos $printer New printer
+     * @param $printer New printer
      */
-    function setPrinter(Escpos $printer = null);
+    function setPrinter($printer = null);
 
     /**
      * Accept UTF-8 text for printing.

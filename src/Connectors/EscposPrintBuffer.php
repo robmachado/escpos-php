@@ -35,7 +35,6 @@ namespace Escpos\Connectors;
  * get it operating properly on your machine.
  */
 
-use Escpos\Escpos;
 use Escpos\Connectors\PrintBufferInterface;
 
 class EscposPrintBuffer implements PrintBufferInterface
@@ -97,9 +96,9 @@ class EscposPrintBuffer implements PrintBufferInterface
 
     /**
      * 
-     * @param \Escpos\Connectors\Escpos $printer
+     * @param 
      */
-    public function setPrinter(Escpos $printer = null)
+    public function setPrinter($printer = null)
     {
         $this->printer = $printer;
         if ($printer != null) {
